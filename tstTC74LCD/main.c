@@ -45,6 +45,7 @@
 #include "I2C/i2c.h"
 #include "LCD/lcd.h"
 #include "stdio.h"
+#include "stdbool.h"
 
 /*
                          Main application
@@ -78,6 +79,8 @@ do{
 
 	return value;
 }
+
+
 
 void main(void)
 {    
