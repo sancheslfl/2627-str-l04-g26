@@ -45,6 +45,8 @@
 #include <xc.h>
 #include <stdint.h>
 #include <stdbool.h>
+#include <stdlib.h>
+#include <stdio.h>
 
 extern uint8_t ALAL;          /* threshold (0..7)            */
 extern uint8_t ALAF;          /* alarmes ativos (0/1)        */
@@ -68,6 +70,7 @@ void lum_init(void)
     ADACQ  = 0x20;
     ADCON0 = 0x94;            /* ADON, clock FRC, resultado a direita */
 }
+
 uint8_t lum_read(void)        /* 0..7 */
 {
     ADCON0bits.ADGO = 1;
@@ -87,11 +90,15 @@ void lum_check(uint8_t lum)   /* chamar de PMON em PMON segundos */
         alarm_cnt = TALA;
         LATAbits.LATA4 = 1;             /* sinal (PWM no futuro) */
     }
+
 }
 
 void lum_tick_1s(void)        /* chamar 1x por segundo: desliga o sinal */
 {
-    if (alarm_cnt && --alarm_cnt == 0) LATAbits.LATA4 = 0;
+    if (alarm_cnt && --alarm_cnt == 0) 
+    {
+        LATAbits.LATA4 = 0;
+    }
 }
 
 void lum_clear(void)          /* chamar quando S1 e premido */
@@ -129,6 +136,7 @@ void main(void)
     //INTERRUPT_PeripheralInterruptDisable();
 
     TMR1_SetInterruptHandler(t1_isr);
+    
     IO_RA7_SetHigh();
 
     while (1)
