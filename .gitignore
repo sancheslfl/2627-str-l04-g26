@@ -1,0 +1,8 @@
+/examples/*
+
+/monitoring_alarm.X/build/
+/monitoring_alarm.X/dist/
+/monitoring_alarm.X/nbproject/private/
+
+monitoring_alarm.X/defmplabxtrace.log
+monitoring_alarm.X/defmplabxtrace.log.inx
