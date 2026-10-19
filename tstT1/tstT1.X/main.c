@@ -104,12 +104,24 @@ void main(void){
                 count_PMON = 0;
                 lum_check(lum_read());
                  }
+              } 
+              //Se o PMON for 0 o sistema não está ativo, o microcontrolador entra em sleep e so acorda com interrupcao do TMR1
+              else 
+                  {
+                INTERRUPT_GlobalInterruptDisable();
+                if(ticks == 0){
+                SLEEP();
+                NOP();
               }
-      
+
+              INTERRUPT_GlobalInterruptEnable();
           }
 
-SLEEP(){
+        }
+    }
 
-};
-  }
+
+
+    
+  
  
