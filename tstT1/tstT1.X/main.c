@@ -1,46 +1,3 @@
-/**
-  Generated Main Source File
-
-  Company:
-    Microchip Technology Inc.
-
-  File Name:
-    main.c
-
-  Summary:
-    This is the main file generated using PIC10 / PIC12 / PIC16 / PIC18 MCUs
-
-  Description:
-    This header file provides implementations for driver APIs for all modules selected in the GUI.
-    Generation Information :
-        Product Revision  :  PIC10 / PIC12 / PIC16 / PIC18 MCUs - 1.81.6
-        Device            :  PIC16F18875
-        Driver Version    :  2.00
-*/
-
-/*
-    (c) 2018 Microchip Technology Inc. and its subsidiaries. 
-    
-    Subject to your compliance with these terms, you may use Microchip software and any 
-    derivatives exclusively with Microchip products. It is your responsibility to comply with third party 
-    license terms applicable to your use of third party software (including open source software) that 
-    may accompany Microchip software.
-    
-    THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER 
-    EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY 
-    IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS 
-    FOR A PARTICULAR PURPOSE.
-    
-    IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, 
-    INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND 
-    WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP 
-    HAS BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO 
-    THE FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL 
-    CLAIMS IN ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT 
-    OF FEES, IF ANY, THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS 
-    SOFTWARE.
-*/
-
 #include "mcc_generated_files/mcc.h"
 #include <xc.h>
 #include <stdint.h>
@@ -48,12 +5,17 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-extern uint8_t ALAL;          /* threshold (0..7)            */
-extern uint8_t ALAF;          /* alarmes ativos (0/1)        */
-extern uint8_t TALA;          /* duracao do sinal (s)        */
+volatile uint8_t ticks = 0;   /* set by TMR1 interrupt */
+uint8_t PMON = 5;             /* periodo de monitorizacao (s) */
+uint8_t ALAL = 3;             /* threshold  = 3  */
+uint8_t ALAF = 1;             /* alarmes ativos (0/1)     */
+uint8_t TALA = 3;             /* duracao do sinal (s)     */
 
+
+/*Por default o alarme se encontea desligado, e so liga quando a luminosidade cai abaixo Do limiar(3)*/
 bool alarm_L_fired = false;   /* trinco: so limpa com S1     */
-uint8_t alarm_cnt  = 0;       /* segundos restantes de sinal */
+uint8_t alarm_cnt  = 0;  
+uint8_t count_PMON = 0;      /* contador para PMON */
 
 void lum_init(void)
 {
@@ -106,47 +68,48 @@ void lum_clear(void)          /* chamar quando S1 e premido */
     alarm_L_fired = false;
 }
 
+void t1_isr(void){
 
-t1_isr()
-{
     IO_RA7_Toggle();
-    
+    if (ticks < 255){
+        ticks++;
+
+    } 
 }
-/*
-                         Main application
- */
-void main(void)
-{
-    // initialize the device
+
+void main(void){
+
+    // initialize the device and peripherals
     SYSTEM_Initialize();
+    lum_init();
 
     // When using interrupts, you need to set the Global and Peripheral Interrupt Enable bits
     // Use the following macros to:
-
+    TMR1_SetInterruptHandler(t1_isr);
     // Enable the Global Interrupts
     INTERRUPT_GlobalInterruptEnable();
 
     // Enable the Peripheral Interrupts
     INTERRUPT_PeripheralInterruptEnable();
 
-    // Disable the Global Interrupts
-    //INTERRUPT_GlobalInterruptDisable();
-
-    // Disable the Peripheral Interrupts
-    //INTERRUPT_PeripheralInterruptDisable();
-
-    TMR1_SetInterruptHandler(t1_isr);
-    
-    IO_RA7_SetHigh();
-
     while (1)
     {
-        // Add your application code
-        NOP();
-        sleep(1);
-    }
-    
-}
-/**
- End of File
-*/
+        if(ticks > 0){
+            INTERRUPT_GlobalInterruptDisable();
+            ticks--;
+            INTERRUPT_GlobalInterruptEnable();
+            lum_tick_1s();
+
+          if (PMON != 0 && ++count_PMON >= PMON ){
+                count_PMON = 0;
+                lum_check(lum_read());
+                 }
+              }
+      
+          }
+
+SLEEP(){
+
+};
+  }
+ 
