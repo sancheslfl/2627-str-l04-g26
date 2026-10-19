@@ -1,3 +1,9 @@
+/* 
+ * File:   time.c
+ * Author: pedro
+ *
+ * Created on October 19, 2026, 8:07 PM
+ */
 #include "mcc_generated_files/mcc.h"
 #include <time.h>
 
