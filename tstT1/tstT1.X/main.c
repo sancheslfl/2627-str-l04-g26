@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+
 volatile uint8_t ticks = 0;   /* set by TMR1 interrupt */
 uint8_t PMON = 5;             /* periodo de monitorizacao (s) */
 uint8_t ALAL = 3;             /* threshold  = 3  */
@@ -103,7 +104,7 @@ void main(void){
           if (PMON != 0 && ++count_PMON >= PMON ){
                 count_PMON = 0;
                 lum_check(lum_read());
-                _delay_ms(600);  /* aguardar 600ms para o sinal de alarme */
+                _delay_ms(500);  /* aguardar 500ms para o sinal de alarme */
                  }
               }
 
