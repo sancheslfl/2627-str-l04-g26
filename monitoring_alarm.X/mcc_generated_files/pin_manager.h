@@ -65,6 +65,46 @@
 #define PULL_UP_ENABLED      1
 #define PULL_UP_DISABLED     0
 
+// get/set channel_ANA0 aliases
+#define channel_ANA0_TRIS                 TRISAbits.TRISA0
+#define channel_ANA0_LAT                  LATAbits.LATA0
+#define channel_ANA0_PORT                 PORTAbits.RA0
+#define channel_ANA0_WPU                  WPUAbits.WPUA0
+#define channel_ANA0_OD                   ODCONAbits.ODCA0
+#define channel_ANA0_ANS                  ANSELAbits.ANSA0
+#define channel_ANA0_SetHigh()            do { LATAbits.LATA0 = 1; } while(0)
+#define channel_ANA0_SetLow()             do { LATAbits.LATA0 = 0; } while(0)
+#define channel_ANA0_Toggle()             do { LATAbits.LATA0 = ~LATAbits.LATA0; } while(0)
+#define channel_ANA0_GetValue()           PORTAbits.RA0
+#define channel_ANA0_SetDigitalInput()    do { TRISAbits.TRISA0 = 1; } while(0)
+#define channel_ANA0_SetDigitalOutput()   do { TRISAbits.TRISA0 = 0; } while(0)
+#define channel_ANA0_SetPullup()          do { WPUAbits.WPUA0 = 1; } while(0)
+#define channel_ANA0_ResetPullup()        do { WPUAbits.WPUA0 = 0; } while(0)
+#define channel_ANA0_SetPushPull()        do { ODCONAbits.ODCA0 = 0; } while(0)
+#define channel_ANA0_SetOpenDrain()       do { ODCONAbits.ODCA0 = 1; } while(0)
+#define channel_ANA0_SetAnalogMode()      do { ANSELAbits.ANSA0 = 1; } while(0)
+#define channel_ANA0_SetDigitalMode()     do { ANSELAbits.ANSA0 = 0; } while(0)
+
+// get/set LIGHT_LED aliases
+#define LIGHT_LED_TRIS                 TRISAbits.TRISA5
+#define LIGHT_LED_LAT                  LATAbits.LATA5
+#define LIGHT_LED_PORT                 PORTAbits.RA5
+#define LIGHT_LED_WPU                  WPUAbits.WPUA5
+#define LIGHT_LED_OD                   ODCONAbits.ODCA5
+#define LIGHT_LED_ANS                  ANSELAbits.ANSA5
+#define LIGHT_LED_SetHigh()            do { LATAbits.LATA5 = 1; } while(0)
+#define LIGHT_LED_SetLow()             do { LATAbits.LATA5 = 0; } while(0)
+#define LIGHT_LED_Toggle()             do { LATAbits.LATA5 = ~LATAbits.LATA5; } while(0)
+#define LIGHT_LED_GetValue()           PORTAbits.RA5
+#define LIGHT_LED_SetDigitalInput()    do { TRISAbits.TRISA5 = 1; } while(0)
+#define LIGHT_LED_SetDigitalOutput()   do { TRISAbits.TRISA5 = 0; } while(0)
+#define LIGHT_LED_SetPullup()          do { WPUAbits.WPUA5 = 1; } while(0)
+#define LIGHT_LED_ResetPullup()        do { WPUAbits.WPUA5 = 0; } while(0)
+#define LIGHT_LED_SetPushPull()        do { ODCONAbits.ODCA5 = 0; } while(0)
+#define LIGHT_LED_SetOpenDrain()       do { ODCONAbits.ODCA5 = 1; } while(0)
+#define LIGHT_LED_SetAnalogMode()      do { ANSELAbits.ANSA5 = 1; } while(0)
+#define LIGHT_LED_SetDigitalMode()     do { ANSELAbits.ANSA5 = 0; } while(0)
+
 // get/set TEMP_LED aliases
 #define TEMP_LED_TRIS                 TRISAbits.TRISA6
 #define TEMP_LED_LAT                  LATAbits.LATA6
