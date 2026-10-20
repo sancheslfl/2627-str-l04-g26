@@ -1,4 +1,4 @@
-/examples/*
+examples/
 
 /monitoring_alarm.X/build/
 /monitoring_alarm.X/dist/
