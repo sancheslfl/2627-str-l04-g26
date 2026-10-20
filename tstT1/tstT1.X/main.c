@@ -56,7 +56,7 @@ void lum_check(uint8_t lum)   /* chamar de PMON em PMON segundos */
 
 }
 
-void lum_tick_1s(void)        /* chamar 1x por segundo: desliga o sinal */
+void lum_tick_1s(void)    /* chamar 1x por segundo: desliga o sinal */
 {
     if (alarm_cnt && --alarm_cnt == 0) 
     {
@@ -105,6 +105,7 @@ void main(void){
                 count_PMON = 0;
                 lum_check(lum_read());
                 _delay_ms(500);  /* aguardar 500ms para o sinal de alarme */
+
                  }
               }
 
