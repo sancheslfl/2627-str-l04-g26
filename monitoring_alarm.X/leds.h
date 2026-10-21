@@ -5,4 +5,6 @@
 
 void set_temperature_led(bool enable);
 
+void set_luminosity_led(bool enable);
+
 #endif
