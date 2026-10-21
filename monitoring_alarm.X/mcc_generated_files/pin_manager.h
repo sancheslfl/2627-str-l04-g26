@@ -85,6 +85,18 @@
 #define channel_ANA0_SetAnalogMode()      do { ANSELAbits.ANSA0 = 1; } while(0)
 #define channel_ANA0_SetDigitalMode()     do { ANSELAbits.ANSA0 = 0; } while(0)
 
+// get/set RA4 procedures
+#define RA4_SetHigh()            do { LATAbits.LATA4 = 1; } while(0)
+#define RA4_SetLow()             do { LATAbits.LATA4 = 0; } while(0)
+#define RA4_Toggle()             do { LATAbits.LATA4 = ~LATAbits.LATA4; } while(0)
+#define RA4_GetValue()              PORTAbits.RA4
+#define RA4_SetDigitalInput()    do { TRISAbits.TRISA4 = 1; } while(0)
+#define RA4_SetDigitalOutput()   do { TRISAbits.TRISA4 = 0; } while(0)
+#define RA4_SetPullup()             do { WPUAbits.WPUA4 = 1; } while(0)
+#define RA4_ResetPullup()           do { WPUAbits.WPUA4 = 0; } while(0)
+#define RA4_SetAnalogMode()         do { ANSELAbits.ANSA4 = 1; } while(0)
+#define RA4_SetDigitalMode()        do { ANSELAbits.ANSA4 = 0; } while(0)
+
 // get/set LIGHT_LED aliases
 #define LIGHT_LED_TRIS                 TRISAbits.TRISA5
 #define LIGHT_LED_LAT                  LATAbits.LATA5
@@ -124,6 +136,46 @@
 #define TEMP_LED_SetOpenDrain()       do { ODCONAbits.ODCA6 = 1; } while(0)
 #define TEMP_LED_SetAnalogMode()      do { ANSELAbits.ANSA6 = 1; } while(0)
 #define TEMP_LED_SetDigitalMode()     do { ANSELAbits.ANSA6 = 0; } while(0)
+
+// get/set CLOCK_LED aliases
+#define CLOCK_LED_TRIS                 TRISAbits.TRISA7
+#define CLOCK_LED_LAT                  LATAbits.LATA7
+#define CLOCK_LED_PORT                 PORTAbits.RA7
+#define CLOCK_LED_WPU                  WPUAbits.WPUA7
+#define CLOCK_LED_OD                   ODCONAbits.ODCA7
+#define CLOCK_LED_ANS                  ANSELAbits.ANSA7
+#define CLOCK_LED_SetHigh()            do { LATAbits.LATA7 = 1; } while(0)
+#define CLOCK_LED_SetLow()             do { LATAbits.LATA7 = 0; } while(0)
+#define CLOCK_LED_Toggle()             do { LATAbits.LATA7 = ~LATAbits.LATA7; } while(0)
+#define CLOCK_LED_GetValue()           PORTAbits.RA7
+#define CLOCK_LED_SetDigitalInput()    do { TRISAbits.TRISA7 = 1; } while(0)
+#define CLOCK_LED_SetDigitalOutput()   do { TRISAbits.TRISA7 = 0; } while(0)
+#define CLOCK_LED_SetPullup()          do { WPUAbits.WPUA7 = 1; } while(0)
+#define CLOCK_LED_ResetPullup()        do { WPUAbits.WPUA7 = 0; } while(0)
+#define CLOCK_LED_SetPushPull()        do { ODCONAbits.ODCA7 = 0; } while(0)
+#define CLOCK_LED_SetOpenDrain()       do { ODCONAbits.ODCA7 = 1; } while(0)
+#define CLOCK_LED_SetAnalogMode()      do { ANSELAbits.ANSA7 = 1; } while(0)
+#define CLOCK_LED_SetDigitalMode()     do { ANSELAbits.ANSA7 = 0; } while(0)
+
+// get/set S1_BUTTON aliases
+#define S1_BUTTON_TRIS                 TRISBbits.TRISB4
+#define S1_BUTTON_LAT                  LATBbits.LATB4
+#define S1_BUTTON_PORT                 PORTBbits.RB4
+#define S1_BUTTON_WPU                  WPUBbits.WPUB4
+#define S1_BUTTON_OD                   ODCONBbits.ODCB4
+#define S1_BUTTON_ANS                  ANSELBbits.ANSB4
+#define S1_BUTTON_SetHigh()            do { LATBbits.LATB4 = 1; } while(0)
+#define S1_BUTTON_SetLow()             do { LATBbits.LATB4 = 0; } while(0)
+#define S1_BUTTON_Toggle()             do { LATBbits.LATB4 = ~LATBbits.LATB4; } while(0)
+#define S1_BUTTON_GetValue()           PORTBbits.RB4
+#define S1_BUTTON_SetDigitalInput()    do { TRISBbits.TRISB4 = 1; } while(0)
+#define S1_BUTTON_SetDigitalOutput()   do { TRISBbits.TRISB4 = 0; } while(0)
+#define S1_BUTTON_SetPullup()          do { WPUBbits.WPUB4 = 1; } while(0)
+#define S1_BUTTON_ResetPullup()        do { WPUBbits.WPUB4 = 0; } while(0)
+#define S1_BUTTON_SetPushPull()        do { ODCONBbits.ODCB4 = 0; } while(0)
+#define S1_BUTTON_SetOpenDrain()       do { ODCONBbits.ODCB4 = 1; } while(0)
+#define S1_BUTTON_SetAnalogMode()      do { ANSELBbits.ANSB4 = 1; } while(0)
+#define S1_BUTTON_SetDigitalMode()     do { ANSELBbits.ANSB4 = 0; } while(0)
 
 // get/set RC3 procedures
 #define RC3_SetHigh()            do { LATCbits.LATC3 = 1; } while(0)
@@ -172,6 +224,90 @@ void PIN_MANAGER_Initialize (void);
     PIN_MANAGER_IOC();
  */
 void PIN_MANAGER_IOC(void);
+
+
+/**
+ * @Param
+    none
+ * @Returns
+    none
+ * @Description
+    Interrupt on Change Handler for the IOCBF4 pin functionality
+ * @Example
+    IOCBF4_ISR();
+ */
+void IOCBF4_ISR(void);
+
+/**
+  @Summary
+    Interrupt Handler Setter for IOCBF4 pin interrupt-on-change functionality
+
+  @Description
+    Allows selecting an interrupt handler for IOCBF4 at application runtime
+    
+  @Preconditions
+    Pin Manager intializer called
+
+  @Returns
+    None.
+
+  @Param
+    InterruptHandler function pointer.
+
+  @Example
+    PIN_MANAGER_Initialize();
+    IOCBF4_SetInterruptHandler(MyInterruptHandler);
+
+*/
+void IOCBF4_SetInterruptHandler(void (* InterruptHandler)(void));
+
+/**
+  @Summary
+    Dynamic Interrupt Handler for IOCBF4 pin
+
+  @Description
+    This is a dynamic interrupt handler to be used together with the IOCBF4_SetInterruptHandler() method.
+    This handler is called every time the IOCBF4 ISR is executed and allows any function to be registered at runtime.
+    
+  @Preconditions
+    Pin Manager intializer called
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    PIN_MANAGER_Initialize();
+    IOCBF4_SetInterruptHandler(IOCBF4_InterruptHandler);
+
+*/
+extern void (*IOCBF4_InterruptHandler)(void);
+
+/**
+  @Summary
+    Default Interrupt Handler for IOCBF4 pin
+
+  @Description
+    This is a predefined interrupt handler to be used together with the IOCBF4_SetInterruptHandler() method.
+    This handler is called every time the IOCBF4 ISR is executed. 
+    
+  @Preconditions
+    Pin Manager intializer called
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    PIN_MANAGER_Initialize();
+    IOCBF4_SetInterruptHandler(IOCBF4_DefaultInterruptHandler);
+
+*/
+void IOCBF4_DefaultInterruptHandler(void);
 
 
 
