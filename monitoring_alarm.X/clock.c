@@ -100,6 +100,23 @@ void clock_set_alarm_time(ClockTime time)
         INTERRUPT_GlobalInterruptEnable();
 }
 
+ClockTime clock_get_alarm_time(void)
+{
+    ClockTime time;
+    uint8_t gie = INTCONbits.GIE;
+
+    INTERRUPT_GlobalInterruptDisable();
+
+    time.hours = alarm_time.hours;
+    time.minutes = alarm_time.minutes;
+    time.seconds = alarm_time.seconds;
+
+    if (gie)
+        INTERRUPT_GlobalInterruptEnable();
+
+    return time;
+}
+
 bool clock_take_alarm_event(void)
 {
     uint8_t gie = INTCONbits.GIE;

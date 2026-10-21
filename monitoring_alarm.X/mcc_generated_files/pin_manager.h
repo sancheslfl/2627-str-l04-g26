@@ -201,6 +201,26 @@
 #define RC4_SetAnalogMode()         do { ANSELCbits.ANSC4 = 1; } while(0)
 #define RC4_SetDigitalMode()        do { ANSELCbits.ANSC4 = 0; } while(0)
 
+// get/set S2_BUTTON aliases
+#define S2_BUTTON_TRIS                 TRISCbits.TRISC5
+#define S2_BUTTON_LAT                  LATCbits.LATC5
+#define S2_BUTTON_PORT                 PORTCbits.RC5
+#define S2_BUTTON_WPU                  WPUCbits.WPUC5
+#define S2_BUTTON_OD                   ODCONCbits.ODCC5
+#define S2_BUTTON_ANS                  ANSELCbits.ANSC5
+#define S2_BUTTON_SetHigh()            do { LATCbits.LATC5 = 1; } while(0)
+#define S2_BUTTON_SetLow()             do { LATCbits.LATC5 = 0; } while(0)
+#define S2_BUTTON_Toggle()             do { LATCbits.LATC5 = ~LATCbits.LATC5; } while(0)
+#define S2_BUTTON_GetValue()           PORTCbits.RC5
+#define S2_BUTTON_SetDigitalInput()    do { TRISCbits.TRISC5 = 1; } while(0)
+#define S2_BUTTON_SetDigitalOutput()   do { TRISCbits.TRISC5 = 0; } while(0)
+#define S2_BUTTON_SetPullup()          do { WPUCbits.WPUC5 = 1; } while(0)
+#define S2_BUTTON_ResetPullup()        do { WPUCbits.WPUC5 = 0; } while(0)
+#define S2_BUTTON_SetPushPull()        do { ODCONCbits.ODCC5 = 0; } while(0)
+#define S2_BUTTON_SetOpenDrain()       do { ODCONCbits.ODCC5 = 1; } while(0)
+#define S2_BUTTON_SetAnalogMode()      do { ANSELCbits.ANSC5 = 1; } while(0)
+#define S2_BUTTON_SetDigitalMode()     do { ANSELCbits.ANSC5 = 0; } while(0)
+
 /**
    @Param
     none
@@ -308,6 +328,90 @@ extern void (*IOCBF4_InterruptHandler)(void);
 
 */
 void IOCBF4_DefaultInterruptHandler(void);
+
+
+/**
+ * @Param
+    none
+ * @Returns
+    none
+ * @Description
+    Interrupt on Change Handler for the IOCCF5 pin functionality
+ * @Example
+    IOCCF5_ISR();
+ */
+void IOCCF5_ISR(void);
+
+/**
+  @Summary
+    Interrupt Handler Setter for IOCCF5 pin interrupt-on-change functionality
+
+  @Description
+    Allows selecting an interrupt handler for IOCCF5 at application runtime
+    
+  @Preconditions
+    Pin Manager intializer called
+
+  @Returns
+    None.
+
+  @Param
+    InterruptHandler function pointer.
+
+  @Example
+    PIN_MANAGER_Initialize();
+    IOCCF5_SetInterruptHandler(MyInterruptHandler);
+
+*/
+void IOCCF5_SetInterruptHandler(void (* InterruptHandler)(void));
+
+/**
+  @Summary
+    Dynamic Interrupt Handler for IOCCF5 pin
+
+  @Description
+    This is a dynamic interrupt handler to be used together with the IOCCF5_SetInterruptHandler() method.
+    This handler is called every time the IOCCF5 ISR is executed and allows any function to be registered at runtime.
+    
+  @Preconditions
+    Pin Manager intializer called
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    PIN_MANAGER_Initialize();
+    IOCCF5_SetInterruptHandler(IOCCF5_InterruptHandler);
+
+*/
+extern void (*IOCCF5_InterruptHandler)(void);
+
+/**
+  @Summary
+    Default Interrupt Handler for IOCCF5 pin
+
+  @Description
+    This is a predefined interrupt handler to be used together with the IOCCF5_SetInterruptHandler() method.
+    This handler is called every time the IOCCF5 ISR is executed. 
+    
+  @Preconditions
+    Pin Manager intializer called
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    PIN_MANAGER_Initialize();
+    IOCCF5_SetInterruptHandler(IOCCF5_DefaultInterruptHandler);
+
+*/
+void IOCCF5_DefaultInterruptHandler(void);
 
 
 

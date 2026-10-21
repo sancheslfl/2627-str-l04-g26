@@ -12,14 +12,15 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-uint8_t PMON = 5;   // Sensor monitoring period (s)
-uint8_t TALA = 3;   // PWM alarm duration (s)
-uint8_t ALAF = 1;   // Alarms enabled/disabled
-int8_t ALAT = 25;   // Temperature threshold
-uint8_t ALAL = 3;   // Luminosity threshold
+uint8_t PMON = 5;  // Monitoring period (s)
+uint8_t TALA = 3;  // Alarm duration (s)
+uint8_t ALAF = 0;  // Alarms enabled
+int8_t ALAT = 25;  // Temperature threshold
+uint8_t ALAL = 3;  // Luminosity threshold
 
 volatile uint8_t ticks = 0;
 volatile bool s1_pressed = false;
+volatile bool s2_pressed = false;
 
 void t1_isr(void)
 {
@@ -35,11 +36,16 @@ void s1_isr(void)
     s1_pressed = true;
 }
 
+void s2_isr(void)
+{
+    s2_pressed = true;
+}
+
 void main(void)
 {
     uint8_t elapsed = 0;
-    int8_t temperature = 0;
-    uint8_t luminosity = 0;
+    int8_t temperature;
+    uint8_t luminosity;
 
     SYSTEM_Initialize();
     OpenI2C();
@@ -50,8 +56,9 @@ void main(void)
 
     TMR1_SetInterruptHandler(t1_isr);
     IOCBF4_SetInterruptHandler(s1_isr);
+    IOCCF5_SetInterruptHandler(s2_isr);
 
-    CPUDOZEbits.IDLEN = 1;  // Idle mode
+    CPUDOZEbits.IDLEN = 1;  // idle mode
 
     INTERRUPT_PeripheralInterruptEnable();
     INTERRUPT_GlobalInterruptEnable();
@@ -67,18 +74,18 @@ void main(void)
         is_below_luminosity_threshold(luminosity, ALAL)
     );
 
-    ui_display_normal(
-        temperature, luminosity, alarm_flags, ALAF != 0
-    );
+    ui_display(temperature, luminosity);
 
     while (1)
     {
         bool process_second = false;
-        bool acknowledge = false;
+        bool press_s1 = false;
+        bool press_s2 = false;
+        bool update_display = false;
 
         INTERRUPT_GlobalInterruptDisable();
 
-        if (ticks == 0 && !s1_pressed)
+        if (ticks == 0 && !s1_pressed && !s2_pressed)
         {
             SLEEP();
             NOP();
@@ -90,19 +97,16 @@ void main(void)
             process_second = true;
         }
 
-        if (s1_pressed)
-        {
-            s1_pressed = false;
-            acknowledge = true;
-        }
+        press_s1 = s1_pressed;
+        press_s2 = s2_pressed;
+        s1_pressed = false;
+        s2_pressed = false;
 
         INTERRUPT_GlobalInterruptEnable();
 
-        if (acknowledge)
-            alarm_acknowledge();
-
         if (process_second)
         {
+            ui_tick_1s();
             alarm_tick_1s();
 
             if (clock_take_alarm_event())
@@ -116,29 +120,41 @@ void main(void)
                 luminosity = read_luminosity();
 
                 bool temp_high =
-                    is_temperature_above_threshold(
-                        temperature, ALAT
-                    );
+                    is_temperature_above_threshold(temperature, ALAT);
 
                 bool light_low =
-                    is_below_luminosity_threshold(
-                        luminosity, ALAL
-                    );
+                    is_below_luminosity_threshold(luminosity, ALAL);
 
                 set_temperature_led(temp_high);
                 set_luminosity_led(light_low);
 
                 alarm_check(temp_high, light_low);
             }
+
+            update_display = true;
         }
 
-        // Refresh LCD every second or after S1
-        if (process_second || acknowledge)
+        if (press_s1 || press_s2)
         {
-            ui_display_normal(
-                temperature, luminosity,
-                alarm_flags, ALAF != 0
-            );
+            // Simple button debounce
+            __delay_ms(20);
+
+            if (press_s1 && !S1_BUTTON_GetValue())
+                ui_press_s1();
+
+            if (press_s2 && !S2_BUTTON_GetValue())
+                ui_press_s2();
+
+            // Discard bouncing interrupts
+            INTERRUPT_GlobalInterruptDisable();
+            s1_pressed = false;
+            s2_pressed = false;
+            INTERRUPT_GlobalInterruptEnable();
+
+            update_display = true;
         }
+
+        if (update_display)
+            ui_display(temperature, luminosity);
     }
 }
