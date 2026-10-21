@@ -1,12 +1,20 @@
+
 #include "records.h"
 #include "clock.h"
+#include "storage.h"
 
 static SensorRecord records[4];
 static bool records_valid = false;
 
+void records_init(void)
+{
+    records_valid = storage_load_records(records);
+}
+
 void records_reset(void)
 {
     records_valid = false;
+    storage_reset_records();
 }
 
 void records_update(int8_t temperature, uint8_t luminosity)
@@ -27,20 +35,38 @@ void records_update(int8_t temperature, uint8_t luminosity)
             records[i] = current;
 
         records_valid = true;
+        storage_save_records(records);
         return;
     }
 
+    bool changed = false;
+
     if (temperature > records[RECORD_TEMPERATURE_MAX].temperature)
+    {
         records[RECORD_TEMPERATURE_MAX] = current;
+        changed = true;
+    }
 
     if (temperature < records[RECORD_TEMPERATURE_MIN].temperature)
+    {
         records[RECORD_TEMPERATURE_MIN] = current;
+        changed = true;
+    }
 
     if (luminosity > records[RECORD_LUMINOSITY_MAX].luminosity)
+    {
         records[RECORD_LUMINOSITY_MAX] = current;
+        changed = true;
+    }
 
     if (luminosity < records[RECORD_LUMINOSITY_MIN].luminosity)
+    {
         records[RECORD_LUMINOSITY_MIN] = current;
+        changed = true;
+    }
+
+    if (changed)
+        storage_save_records(records);
 }
 
 bool records_get(RecordType type, SensorRecord *record)

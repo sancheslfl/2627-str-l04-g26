@@ -51,17 +51,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=I2C/i2c.c LCD/lcd.c mcc_generated_files/examples/i2c1_master_example.c mcc_generated_files/device_config.c mcc_generated_files/mcc.c mcc_generated_files/pin_manager.c mcc_generated_files/i2c1_master.c mcc_generated_files/adcc.c mcc_generated_files/interrupt_manager.c mcc_generated_files/tmr2.c mcc_generated_files/pwm6.c mcc_generated_files/tmr1.c main.c alarm.c leds.c temperature.c luminosity.c clock.c ui.c records.c
+SOURCEFILES_QUOTED_IF_SPACED=I2C/i2c.c LCD/lcd.c mcc_generated_files/examples/i2c1_master_example.c mcc_generated_files/device_config.c mcc_generated_files/mcc.c mcc_generated_files/pin_manager.c mcc_generated_files/i2c1_master.c mcc_generated_files/adcc.c mcc_generated_files/interrupt_manager.c mcc_generated_files/tmr2.c mcc_generated_files/pwm6.c mcc_generated_files/tmr1.c main.c alarm.c leds.c temperature.c luminosity.c clock.c ui.c records.c storage.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/I2C/i2c.p1 ${OBJECTDIR}/LCD/lcd.p1 ${OBJECTDIR}/mcc_generated_files/examples/i2c1_master_example.p1 ${OBJECTDIR}/mcc_generated_files/device_config.p1 ${OBJECTDIR}/mcc_generated_files/mcc.p1 ${OBJECTDIR}/mcc_generated_files/pin_manager.p1 ${OBJECTDIR}/mcc_generated_files/i2c1_master.p1 ${OBJECTDIR}/mcc_generated_files/adcc.p1 ${OBJECTDIR}/mcc_generated_files/interrupt_manager.p1 ${OBJECTDIR}/mcc_generated_files/tmr2.p1 ${OBJECTDIR}/mcc_generated_files/pwm6.p1 ${OBJECTDIR}/mcc_generated_files/tmr1.p1 ${OBJECTDIR}/main.p1 ${OBJECTDIR}/alarm.p1 ${OBJECTDIR}/leds.p1 ${OBJECTDIR}/temperature.p1 ${OBJECTDIR}/luminosity.p1 ${OBJECTDIR}/clock.p1 ${OBJECTDIR}/ui.p1 ${OBJECTDIR}/records.p1
-POSSIBLE_DEPFILES=${OBJECTDIR}/I2C/i2c.p1.d ${OBJECTDIR}/LCD/lcd.p1.d ${OBJECTDIR}/mcc_generated_files/examples/i2c1_master_example.p1.d ${OBJECTDIR}/mcc_generated_files/device_config.p1.d ${OBJECTDIR}/mcc_generated_files/mcc.p1.d ${OBJECTDIR}/mcc_generated_files/pin_manager.p1.d ${OBJECTDIR}/mcc_generated_files/i2c1_master.p1.d ${OBJECTDIR}/mcc_generated_files/adcc.p1.d ${OBJECTDIR}/mcc_generated_files/interrupt_manager.p1.d ${OBJECTDIR}/mcc_generated_files/tmr2.p1.d ${OBJECTDIR}/mcc_generated_files/pwm6.p1.d ${OBJECTDIR}/mcc_generated_files/tmr1.p1.d ${OBJECTDIR}/main.p1.d ${OBJECTDIR}/alarm.p1.d ${OBJECTDIR}/leds.p1.d ${OBJECTDIR}/temperature.p1.d ${OBJECTDIR}/luminosity.p1.d ${OBJECTDIR}/clock.p1.d ${OBJECTDIR}/ui.p1.d ${OBJECTDIR}/records.p1.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/I2C/i2c.p1 ${OBJECTDIR}/LCD/lcd.p1 ${OBJECTDIR}/mcc_generated_files/examples/i2c1_master_example.p1 ${OBJECTDIR}/mcc_generated_files/device_config.p1 ${OBJECTDIR}/mcc_generated_files/mcc.p1 ${OBJECTDIR}/mcc_generated_files/pin_manager.p1 ${OBJECTDIR}/mcc_generated_files/i2c1_master.p1 ${OBJECTDIR}/mcc_generated_files/adcc.p1 ${OBJECTDIR}/mcc_generated_files/interrupt_manager.p1 ${OBJECTDIR}/mcc_generated_files/tmr2.p1 ${OBJECTDIR}/mcc_generated_files/pwm6.p1 ${OBJECTDIR}/mcc_generated_files/tmr1.p1 ${OBJECTDIR}/main.p1 ${OBJECTDIR}/alarm.p1 ${OBJECTDIR}/leds.p1 ${OBJECTDIR}/temperature.p1 ${OBJECTDIR}/luminosity.p1 ${OBJECTDIR}/clock.p1 ${OBJECTDIR}/ui.p1 ${OBJECTDIR}/records.p1 ${OBJECTDIR}/storage.p1
+POSSIBLE_DEPFILES=${OBJECTDIR}/I2C/i2c.p1.d ${OBJECTDIR}/LCD/lcd.p1.d ${OBJECTDIR}/mcc_generated_files/examples/i2c1_master_example.p1.d ${OBJECTDIR}/mcc_generated_files/device_config.p1.d ${OBJECTDIR}/mcc_generated_files/mcc.p1.d ${OBJECTDIR}/mcc_generated_files/pin_manager.p1.d ${OBJECTDIR}/mcc_generated_files/i2c1_master.p1.d ${OBJECTDIR}/mcc_generated_files/adcc.p1.d ${OBJECTDIR}/mcc_generated_files/interrupt_manager.p1.d ${OBJECTDIR}/mcc_generated_files/tmr2.p1.d ${OBJECTDIR}/mcc_generated_files/pwm6.p1.d ${OBJECTDIR}/mcc_generated_files/tmr1.p1.d ${OBJECTDIR}/main.p1.d ${OBJECTDIR}/alarm.p1.d ${OBJECTDIR}/leds.p1.d ${OBJECTDIR}/temperature.p1.d ${OBJECTDIR}/luminosity.p1.d ${OBJECTDIR}/clock.p1.d ${OBJECTDIR}/ui.p1.d ${OBJECTDIR}/records.p1.d ${OBJECTDIR}/storage.p1.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/I2C/i2c.p1 ${OBJECTDIR}/LCD/lcd.p1 ${OBJECTDIR}/mcc_generated_files/examples/i2c1_master_example.p1 ${OBJECTDIR}/mcc_generated_files/device_config.p1 ${OBJECTDIR}/mcc_generated_files/mcc.p1 ${OBJECTDIR}/mcc_generated_files/pin_manager.p1 ${OBJECTDIR}/mcc_generated_files/i2c1_master.p1 ${OBJECTDIR}/mcc_generated_files/adcc.p1 ${OBJECTDIR}/mcc_generated_files/interrupt_manager.p1 ${OBJECTDIR}/mcc_generated_files/tmr2.p1 ${OBJECTDIR}/mcc_generated_files/pwm6.p1 ${OBJECTDIR}/mcc_generated_files/tmr1.p1 ${OBJECTDIR}/main.p1 ${OBJECTDIR}/alarm.p1 ${OBJECTDIR}/leds.p1 ${OBJECTDIR}/temperature.p1 ${OBJECTDIR}/luminosity.p1 ${OBJECTDIR}/clock.p1 ${OBJECTDIR}/ui.p1 ${OBJECTDIR}/records.p1
+OBJECTFILES=${OBJECTDIR}/I2C/i2c.p1 ${OBJECTDIR}/LCD/lcd.p1 ${OBJECTDIR}/mcc_generated_files/examples/i2c1_master_example.p1 ${OBJECTDIR}/mcc_generated_files/device_config.p1 ${OBJECTDIR}/mcc_generated_files/mcc.p1 ${OBJECTDIR}/mcc_generated_files/pin_manager.p1 ${OBJECTDIR}/mcc_generated_files/i2c1_master.p1 ${OBJECTDIR}/mcc_generated_files/adcc.p1 ${OBJECTDIR}/mcc_generated_files/interrupt_manager.p1 ${OBJECTDIR}/mcc_generated_files/tmr2.p1 ${OBJECTDIR}/mcc_generated_files/pwm6.p1 ${OBJECTDIR}/mcc_generated_files/tmr1.p1 ${OBJECTDIR}/main.p1 ${OBJECTDIR}/alarm.p1 ${OBJECTDIR}/leds.p1 ${OBJECTDIR}/temperature.p1 ${OBJECTDIR}/luminosity.p1 ${OBJECTDIR}/clock.p1 ${OBJECTDIR}/ui.p1 ${OBJECTDIR}/records.p1 ${OBJECTDIR}/storage.p1
 
 # Source Files
-SOURCEFILES=I2C/i2c.c LCD/lcd.c mcc_generated_files/examples/i2c1_master_example.c mcc_generated_files/device_config.c mcc_generated_files/mcc.c mcc_generated_files/pin_manager.c mcc_generated_files/i2c1_master.c mcc_generated_files/adcc.c mcc_generated_files/interrupt_manager.c mcc_generated_files/tmr2.c mcc_generated_files/pwm6.c mcc_generated_files/tmr1.c main.c alarm.c leds.c temperature.c luminosity.c clock.c ui.c records.c
+SOURCEFILES=I2C/i2c.c LCD/lcd.c mcc_generated_files/examples/i2c1_master_example.c mcc_generated_files/device_config.c mcc_generated_files/mcc.c mcc_generated_files/pin_manager.c mcc_generated_files/i2c1_master.c mcc_generated_files/adcc.c mcc_generated_files/interrupt_manager.c mcc_generated_files/tmr2.c mcc_generated_files/pwm6.c mcc_generated_files/tmr1.c main.c alarm.c leds.c temperature.c luminosity.c clock.c ui.c records.c storage.c
 
 
 
@@ -248,6 +248,14 @@ ${OBJECTDIR}/records.p1: records.c  nbproject/Makefile-${CND_CONF}.mk
 	@-${MV} ${OBJECTDIR}/records.d ${OBJECTDIR}/records.p1.d 
 	@${FIXDEPS} ${OBJECTDIR}/records.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
+${OBJECTDIR}/storage.p1: storage.c  nbproject/Makefile-${CND_CONF}.mk 
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/storage.p1.d 
+	@${RM} ${OBJECTDIR}/storage.p1 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1  -mdebugger=none   -mdfp="${DFP_DIR}/xc8"  -O0 -fasmfile -maddrqual=ignore -xassembler-with-cpp -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mno-osccal -mno-resetbits -mno-save-resetbits -mno-download -mno-stackcall -mdefault-config-bits $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto     -o ${OBJECTDIR}/storage.p1 storage.c 
+	@-${MV} ${OBJECTDIR}/storage.d ${OBJECTDIR}/storage.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/storage.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
 else
 ${OBJECTDIR}/I2C/i2c.p1: I2C/i2c.c  nbproject/Makefile-${CND_CONF}.mk 
 	@${MKDIR} "${OBJECTDIR}/I2C" 
@@ -408,6 +416,14 @@ ${OBJECTDIR}/records.p1: records.c  nbproject/Makefile-${CND_CONF}.mk
 	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c   -mdfp="${DFP_DIR}/xc8"  -O0 -fasmfile -maddrqual=ignore -xassembler-with-cpp -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mno-osccal -mno-resetbits -mno-save-resetbits -mno-download -mno-stackcall -mdefault-config-bits $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto     -o ${OBJECTDIR}/records.p1 records.c 
 	@-${MV} ${OBJECTDIR}/records.d ${OBJECTDIR}/records.p1.d 
 	@${FIXDEPS} ${OBJECTDIR}/records.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
+${OBJECTDIR}/storage.p1: storage.c  nbproject/Makefile-${CND_CONF}.mk 
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/storage.p1.d 
+	@${RM} ${OBJECTDIR}/storage.p1 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c   -mdfp="${DFP_DIR}/xc8"  -O0 -fasmfile -maddrqual=ignore -xassembler-with-cpp -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mno-osccal -mno-resetbits -mno-save-resetbits -mno-download -mno-stackcall -mdefault-config-bits $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto     -o ${OBJECTDIR}/storage.p1 storage.c 
+	@-${MV} ${OBJECTDIR}/storage.d ${OBJECTDIR}/storage.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/storage.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
 endif
 

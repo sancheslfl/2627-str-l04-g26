@@ -27,6 +27,7 @@
       <itemPath>clock.h</itemPath>
       <itemPath>ui.h</itemPath>
       <itemPath>records.h</itemPath>
+      <itemPath>storage.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -73,6 +74,7 @@
       <itemPath>clock.c</itemPath>
       <itemPath>ui.c</itemPath>
       <itemPath>records.c</itemPath>
+      <itemPath>storage.c</itemPath>
     </logicalFolder>
   </logicalFolder>
   <sourceRootList>

@@ -3,6 +3,7 @@
 #include "clock.h"
 #include "alarm.h"
 #include "records.h"
+#include "storage.h"
 #include "LCD/lcd.h"
 
 extern uint8_t ALAF;
@@ -159,17 +160,21 @@ void ui_press_s1(void)
     }
 }
 
+
 void ui_press_s2(void)
 {
     ClockTime time;
+    bool changed = false;
 
-    switch (state) {
+    switch (state)
+    {
         case UI_CLOCK_H:
         case UI_CLOCK_M:
         case UI_CLOCK_S:
             time = clock_get_time();
             increment_time(&time, state - UI_CLOCK_H);
             clock_set_time(time);
+            changed = true;
             break;
 
         case UI_SELECT_C:
@@ -182,6 +187,7 @@ void ui_press_s2(void)
             time = clock_get_alarm_time();
             increment_time(&time, state - UI_ALARM_H);
             clock_set_alarm_time(time);
+            changed = true;
             break;
 
         case UI_SELECT_T:
@@ -190,6 +196,7 @@ void ui_press_s2(void)
 
         case UI_EDIT_T:
             ALAT = (ALAT + 1) % 51;
+            changed = true;
             break;
 
         case UI_SELECT_L:
@@ -198,10 +205,12 @@ void ui_press_s2(void)
 
         case UI_EDIT_L:
             ALAL = (ALAL + 1) % 8;
+            changed = true;
             break;
 
         case UI_ALARM_ENABLE:
             ALAF = !ALAF;
+            changed = true;
             break;
 
         case UI_NORMAL:
@@ -215,6 +224,9 @@ void ui_press_s2(void)
         default:
             break;
     }
+
+    if (changed)
+        storage_save_config();
 }
 
 void ui_display(int8_t temperature, uint8_t luminosity)

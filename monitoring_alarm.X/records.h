@@ -20,6 +20,7 @@ typedef enum {
     RECORD_LUMINOSITY_MIN
 } RecordType;
 
+void records_init(void);
 void records_reset(void);
 void records_update(int8_t temperature, uint8_t luminosity);
 bool records_get(RecordType type, SensorRecord *record);

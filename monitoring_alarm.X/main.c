@@ -9,15 +9,16 @@
 #include "clock.h"
 #include "ui.h"
 #include "records.h"
+#include "storage.h"
 
 #include <stdint.h>
 #include <stdbool.h>
 
-uint8_t PMON = 5;  // Monitoring period (s)
-uint8_t TALA = 3;  // Alarm duration (s)
-uint8_t ALAF = 0;  // Alarms enabled
-int8_t ALAT = 25;  // Temperature threshold
-uint8_t ALAL = 3;  // Luminosity threshold
+uint8_t PMON = 5;   // monitoring period (s)
+uint8_t TALA = 3;   // alarm duration (s)
+uint8_t ALAF = 0;   // alarms enabled
+int8_t ALAT = 25;   // temperature threshold
+uint8_t ALAL = 3;   // luminosity threshold
 
 volatile uint8_t ticks = 0;
 volatile bool s1_pressed = false;
@@ -52,7 +53,8 @@ void main(void)
     OpenI2C();
 
     clock_init();
-    records_reset();
+    storage_load_config();
+    records_init();
     ui_init();
     alarm_init();
 
@@ -60,13 +62,14 @@ void main(void)
     IOCBF4_SetInterruptHandler(s1_isr);
     IOCCF5_SetInterruptHandler(s2_isr);
 
-    CPUDOZEbits.IDLEN = 1;  // idle mode
+    CPUDOZEbits.IDLEN = 1;  // Idle mode
 
     INTERRUPT_PeripheralInterruptEnable();
     INTERRUPT_GlobalInterruptEnable();
 
     temperature = readTC74();
     luminosity = read_luminosity();
+
     records_update(temperature, luminosity);
 
     set_temperature_led(
@@ -78,6 +81,8 @@ void main(void)
     );
 
     ui_display(temperature, luminosity);
+
+    ClockTime last_saved_time = clock_get_time();
 
     while (1)
     {
@@ -121,6 +126,7 @@ void main(void)
 
                 temperature = readTC74();
                 luminosity = read_luminosity();
+
                 records_update(temperature, luminosity);
 
                 bool temp_high =
@@ -135,12 +141,22 @@ void main(void)
                 alarm_check(temp_high, light_low);
             }
 
+            // save the clock whenever hours or minutes change
+            ClockTime time = clock_get_time();
+
+            if (time.hours != last_saved_time.hours ||
+                time.minutes != last_saved_time.minutes)
+            {
+                storage_save_config();
+                last_saved_time = time;
+            }
+
             update_display = true;
         }
 
         if (press_s1 || press_s2)
         {
-            // Simple button debounce
+            // ignore button bouncing
             __delay_ms(20);
 
             if (press_s1 && !S1_BUTTON_GetValue())
@@ -149,7 +165,6 @@ void main(void)
             if (press_s2 && !S2_BUTTON_GetValue())
                 ui_press_s2();
 
-            // Discard bouncing interrupts
             INTERRUPT_GlobalInterruptDisable();
             s1_pressed = false;
             s2_pressed = false;
