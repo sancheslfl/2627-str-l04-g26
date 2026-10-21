@@ -2,6 +2,8 @@
 #include <xc.h>
 #include <stdint.h>
 #include <stdbool.h>
+#include <stdlib.h>
+#include <stdio.h>
 
 #ifndef _XTAL_FREQ
 #define _XTAL_FREQ 1000000UL          /* Fosc real = 1 MHz */
@@ -53,10 +55,11 @@ static void timer1_sleep_init(void)
 void t1_isr(void)
 {
     IO_RA7_Toggle();                  /* LED D5: relogio */
-    if (ticks < 255) ticks++;
+    if (ticks < 255) 
+    ticks++;
 }
 
-/* ------------------------------------------------------------------ */
+/* ----------------------------------------------------------------- */
 void lum_init(void)
 {
     TRISAbits.TRISA0 = 1;  ANSELAbits.ANSA0 = 1;   /* potenciometro */
@@ -70,6 +73,7 @@ void lum_init(void)
     ADCON0 = 0x14;                    /* FRC, resultado a direita, ADC DESLIGADO */
 }
 
+//Converte os valores lidos do ADC (0..1023) para 0..7, para simplificar a logica de alarme
 uint8_t lum_read(void)
 {
     ADCON0bits.ADON = 1;              /* liga o ADC so durante a leitura */
@@ -80,6 +84,7 @@ uint8_t lum_read(void)
     return (uint8_t)(raw >> 7);       /* 0..7 */
 }
 
+//condicao de alarme: luminosidade < ALAL, ALAF=1, e ainda nao disparou o alarme
 void lum_check(uint8_t lum)
 {
     bool below = (lum < ALAL);
@@ -91,12 +96,17 @@ void lum_check(uint8_t lum)
     }
 }
 
+//Dispara a contagem regressiva do alarme, que desliga o sinal de alarme quando chega a 0
 void lum_tick_1s(void)
 {
     if (alarm_cnt && --alarm_cnt == 0) LATAbits.LATA4 = 0;
 }
 
-void lum_clear(void) { alarm_L_fired = false; }
+void lum_clear(void)
+
+{ alarm_L_fired = false; 
+
+}
 
 /* ------------------------------------------------------------------ */
 void main(void)
@@ -120,6 +130,7 @@ void main(void)
             if (PMON != 0 && ++mon_cnt >= PMON) {
                 mon_cnt = 0;
                 lum_check(lum_read());
+                _delay_ms(500);   /* aguarda o LCD atualizar */
             }
         }
         else {
