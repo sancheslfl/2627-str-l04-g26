@@ -2,6 +2,7 @@
 #include "ui.h"
 #include "clock.h"
 #include "alarm.h"
+#include "records.h"
 #include "LCD/lcd.h"
 
 extern uint8_t ALAF;
@@ -23,7 +24,9 @@ typedef enum {
     UI_SELECT_L,
     UI_EDIT_L,
     UI_ALARM_ENABLE,
-    UI_RESET
+    UI_RESET,
+    UI_RECORD_T,
+    UI_RECORD_L
 } UIState;
 
 static UIState state = UI_NORMAL;
@@ -33,6 +36,51 @@ static void write_two_digits(char *text, uint8_t pos, uint8_t value)
 {
     text[pos] = '0' + value / 10;
     text[pos + 1] = '0' + value % 10;
+}
+
+
+static void display_record_line(uint8_t row, RecordType type)
+{
+    SensorRecord record;
+
+    LCDpos(row, 0);
+
+    if (!records_get(type, &record))
+    {
+        LCDstr("                ");
+        return;
+    }
+
+    char line[17] = "00:00:00 00 C L0";
+
+    write_two_digits(line, 0, record.hours);
+    write_two_digits(line, 3, record.minutes);
+    write_two_digits(line, 6, record.seconds);
+
+    if (record.temperature >= 0 && record.temperature <= 99)
+        write_two_digits(line, 9, (uint8_t)record.temperature);
+    else
+        line[9] = line[10] = '-';
+
+    line[15] = '0' + record.luminosity;
+
+    LCDstr(line);
+}
+
+static void ui_display_records(void)
+{
+    LCDcmd(0x0C);  // Hide cursor.
+
+    if (state == UI_RECORD_T)
+    {
+        display_record_line(0, RECORD_TEMPERATURE_MAX);
+        display_record_line(1, RECORD_TEMPERATURE_MIN);
+    }
+    else
+    {
+        display_record_line(0, RECORD_LUMINOSITY_MAX);
+        display_record_line(1, RECORD_LUMINOSITY_MIN);
+    }
 }
 
 static void increment_time(ClockTime *time, uint8_t field)
@@ -57,16 +105,29 @@ void ui_init(void)
     LCDcmd(0x0C);
 }
 
+
 void ui_tick_1s(void)
 {
-    if (state == UI_PREVIEW && preview_remaining > 0) {
+    if (state == UI_PREVIEW && preview_remaining > 0)
+    {
         if (--preview_remaining == 0)
             state = UI_NORMAL;
+    }
+    else if (state == UI_RECORD_T)
+    {
+        state = UI_RECORD_L;
+    }
+    else if (state == UI_RECORD_L)
+    {
+        state = UI_NORMAL;
     }
 }
 
 void ui_press_s1(void)
 {
+    if (state == UI_RECORD_T || state == UI_RECORD_L)
+        state = UI_NORMAL;
+
     if (state == UI_NORMAL) {
         alarm_acknowledge();
         state = UI_PREVIEW;
@@ -144,9 +205,11 @@ void ui_press_s2(void)
             break;
 
         case UI_NORMAL:
+            state = UI_RECORD_T;
             break;
 
         case UI_RESET:
+            records_reset();
             break;
 
         default:
@@ -156,12 +219,18 @@ void ui_press_s2(void)
 
 void ui_display(int8_t temperature, uint8_t luminosity)
 {
+    if (state == UI_RECORD_T || state == UI_RECORD_L)
+    {
+        ui_display_records();
+        return;
+    }
+
     ClockTime time = clock_get_time();
 
     char line1[17] = "00:00:00        ";
     char line2[17] = "00 C        L 0 ";
 
-    bool configuring = state >= UI_CLOCK_H;
+    bool configuring = state >= UI_CLOCK_H && state <= UI_RESET;
 
     if (state == UI_PREVIEW ||
         (state >= UI_SELECT_C && state <= UI_ALARM_S))

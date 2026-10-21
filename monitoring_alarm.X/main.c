@@ -8,6 +8,7 @@
 #include "alarm.h"
 #include "clock.h"
 #include "ui.h"
+#include "records.h"
 
 #include <stdint.h>
 #include <stdbool.h>
@@ -51,6 +52,7 @@ void main(void)
     OpenI2C();
 
     clock_init();
+    records_reset();
     ui_init();
     alarm_init();
 
@@ -65,6 +67,7 @@ void main(void)
 
     temperature = readTC74();
     luminosity = read_luminosity();
+    records_update(temperature, luminosity);
 
     set_temperature_led(
         is_temperature_above_threshold(temperature, ALAT)
@@ -118,6 +121,7 @@ void main(void)
 
                 temperature = readTC74();
                 luminosity = read_luminosity();
+                records_update(temperature, luminosity);
 
                 bool temp_high =
                     is_temperature_above_threshold(temperature, ALAT);

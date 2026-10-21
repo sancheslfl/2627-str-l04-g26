@@ -26,6 +26,7 @@
       <itemPath>alarm.h</itemPath>
       <itemPath>clock.h</itemPath>
       <itemPath>ui.h</itemPath>
+      <itemPath>records.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -71,6 +72,7 @@
       <itemPath>luminosity.c</itemPath>
       <itemPath>clock.c</itemPath>
       <itemPath>ui.c</itemPath>
+      <itemPath>records.c</itemPath>
     </logicalFolder>
   </logicalFolder>
   <sourceRootList>
