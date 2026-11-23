@@ -1,0 +1,11 @@
+25009 1793210947921 XXXX 1793210947921, Thread 25009: XXXX 1793210947921, Entering Thread 25009: Commands::runScriptBasic, script name = GetHaltStatus, timeOut = -1 ms  
+25009 1793210947921 XXXX 1793210947921, Thread 25009: com.Send returned false 
+25009 1793210947921 XXXX 1793210947921, Thread 25009: transfer: exception after writeHeaderAndGetResult null 
+25009 1793210947921 XXXX 1793210947921, Thread 25009: XXXX 1793210947921, Entering Thread 25009: ToolCommUsb::recoverFromProtocolError, type = NO_SCRIPT  
+25009 1793210947921 XXXX 1793210947921, Thread 25009: Send Abort Script Engine Command 
+25009 1793210947921 XXXX 1793210947921, Thread 25009: XXXX 1793210947921, Entering Thread 25009: ToolCommUsb::killScriptEngine  
+25009 1793210947922 XXXX 1793210947922, Thread 25009: com.Send returned false 
+25009 1793210947922 XXXX 1793210947922, Thread 25009: Failed sending Abort Script Engine Command. Set nuclear option = true 
+25009 1793210947922 XXXX 1793210947922, Thread 25009: About to nuke 
+25009 1793210947922 XXXX 1793210947922, Thread 25009: XXXX 1793210947922, Entering Thread 25009: ToolCommUsb::nuclearOption  
+25009 1793210947922 XXXX 1793210947922, Thread 25009: com.Send returned false 

@@ -1,8 +1,10 @@
-examples/
+part1/examples/
 
-/monitoring_alarm.X/build/
-/monitoring_alarm.X/dist/
-/monitoring_alarm.X/nbproject/private/
+**/build/
+**/dist/
+**/nbproject/private/
+**/debug/
 
-monitoring_alarm.X/defmplabxtrace.log
-monitoring_alarm.X/defmplabxtrace.log.inx
+**/defmplabxtrace.log
+**/defmplabxtrace.log.inx
+**/queuelogs/debugtool.txt
