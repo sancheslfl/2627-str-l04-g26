@@ -8,3 +8,20 @@ part1/examples/
 **/defmplabxtrace.log
 **/defmplabxtrace.log.inx
 **/queuelogs/debugtool.txt
+
+# Biblioteca Mbed OS (pesada e descarregável)
+**/mbed/
+
+# Pasta temporária de ferramentas do Mbed
+**/.temp/
+
+# Metadados do Mercurial (caso existam noutras subpastas)
+**/.hg/
+
+# Ficheiros gerados na compilação
+**/BUILD/
+*.pyc
+**/__pycache__/
+
+# Configurações locais (contém caminhos específicos do teu PC)
+**/mbed_settings.py
