@@ -8,3 +8,8 @@ part1/examples/
 **/defmplabxtrace.log
 **/defmplabxtrace.log.inx
 **/queuelogs/debugtool.txt
+
+**/flake.nix
+**/flake.lock
+**/.direnv
+**/.envrc
